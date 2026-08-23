@@ -7,7 +7,9 @@
 #include "Components/ShapeComponent.h"
 #include "Containers/Array.h"
 #include "Containers/Map.h"
+#include "Engine/EngineTypes.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/World.h"
 #include "EngineUtils.h"
 #include "JoltDataAsset.h"
 #include "JoltWorker.h"
@@ -492,7 +494,18 @@ void UJoltSubsystem::InitPhysicsSystem(
 	MainPhysicsSystem = new JPH::PhysicsSystem;
 
 #ifdef JPH_DEBUG_RENDERER
-	JoltDebugRendererImpl = new UEJoltDebugRenderer(GetWorld());
+	UWorld* world = GetWorld();
+	/*
+	 * We only need to draw in PIE most of the time. Just in case, if we need to draw in Game
+	 */
+	if (
+		world
+		&& (world->WorldType == EWorldType::Game || world->WorldType == EWorldType::PIE)
+		&& JPH::DebugRenderer::sInstance == nullptr
+		)
+	{
+		JoltDebugRendererImpl = new UEJoltDebugRenderer(world);
+	}
 #endif
 	// Set gravity according to the default gravity vector in settings
 	MainPhysicsSystem->SetGravity(JoltHelpers::ToJoltVec3(JoltSettings->DefaultGravity));
