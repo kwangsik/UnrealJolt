@@ -31,7 +31,7 @@ public class UnrealJoltLibrary : ModuleRules
 		cmakeOptions += " -DDOUBLE_PRECISION=ON"; 
 		cmakeOptions += " -DCROSS_PLATFORM_DETERMINISTIC=ON ";
 		cmakeOptions += " -DOBJECT_LAYER_BITS=32 ";
-		cmakeOptions += " -DINTERPROCEDURAL_OPTIMIZATION=ON ";
+		cmakeOptions += " -DINTERPROCEDURAL_OPTIMIZATION=OFF ";
 		cmakeOptions += " -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ";
 		cmakeOptions += " -DTARGET_SAMPLES=OFF ";
 		cmakeOptions += " -DTARGET_HELLO_WORLD=OFF";
@@ -45,6 +45,11 @@ public class UnrealJoltLibrary : ModuleRules
 		cmakeOptions += " -DUSE_F16C=OFF ";
 		cmakeOptions += " -DENABLE_OBJECT_STREAM=ON ";
 
+		// Initial JoltEngine runtime does not use Jolt GPU compute.
+		cmakeOptions += " -DJPH_USE_DX12=OFF ";
+		cmakeOptions += " -DJPH_USE_VK=OFF ";
+		cmakeOptions += " -DJPH_USE_MTL=OFF ";
+		cmakeOptions += " -DJPH_USE_CPU_COMPUTE=OFF ";
 
 		if (Target.Platform == UnrealTargetPlatform.Win64)
 		{
