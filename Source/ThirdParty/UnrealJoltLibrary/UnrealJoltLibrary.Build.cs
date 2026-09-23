@@ -59,7 +59,7 @@ public class UnrealJoltLibrary : ModuleRules
 				case "Debug":
 					cmakeOptions += " -DDEBUG_RENDERER_IN_DISTRIBUTION=ON ";
 					cmakeOptions += " -DPROFILER_IN_DISTRIBUTION=OFF ";
-					cmakeOptions += " -DPROFILER_IN_DEBUG_AND_RELEASE =OFF ";
+					cmakeOptions += " -DPROFILER_IN_DEBUG_AND_RELEASE=OFF ";
 					buildTypeCompilator = "--config Debug";
 					break;
 				case "Release":
